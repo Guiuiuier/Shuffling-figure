@@ -1,0 +1,119 @@
+//图片轮播代码
+
+
+        window.onload=function(){
+            var wrap=document.getElementById('wrap'),
+            pic=document.getElementById('pic').getElementsByTagName("li"),
+            list=document.getElementById('list').getElementsByTagName('li'),
+            index=0,
+            timer=null;
+           
+            // 定义并调用自动播放函数
+            timer = setInterval(autoPlay, 2000);
+           
+            // 鼠标划过整个容器时停止自动播放
+            wrap.onmouseover = function () {
+            clearInterval(timer);
+            }
+           
+            // 鼠标离开整个容器时继续播放至下一张
+            wrap.onmouseout = function () {
+            timer = setInterval(autoPlay, 2000);
+            }
+            // 遍历所有数字导航实现划过切换至对应的图片
+            for (var i = 0; i < list.length; i++) {
+            list[i].onmouseover = function () {
+            clearInterval(timer);
+            index = this.innerText - 1;
+            changePic(index);
+            };
+            };
+           
+            function autoPlay () {
+            if (++index >= pic.length) index = 0;
+            changePic(index);
+            }
+           
+            // 定义图片切换函数
+            function changePic (curIndex) {
+            for (var i = 0; i < pic.length; ++i) {
+            pic[i].style.display = "none";
+            list[i].className = "";
+            }
+            pic[curIndex].style.display = "block";
+            list[curIndex].className = "on";
+            }
+           
+            };
+           //css和html代码
+           
+            <div class="frame_content_top_left" id="frame_content_top_left">
+                    <div class="wrap" id='wrap'>
+                 <ul id="pic">
+                     <li><img src="img/1.jpg"alt="1"/></li>
+                     <li> <img src="img/2.png" alt="2" class="img2"/></li>
+                     <li><img src="img/1.jpg" alt="3" class="img3"/></li>
+                 </ul>
+                    <ol id="list">
+                        <li class="on">1</li>
+                        <li>2</li>
+                        <li>3</li>
+                        <li>4</li>
+                        <li>5</li>
+                     </ol>
+                    </div>
+                 </div>
+                 
+                 .frame_content_top_left{
+    float: left;
+    width: 400px;
+    height: 280px;
+    display:block;
+    background-color: rosybrown;
+    position: relative;
+    overflow: hidden;
+}
+ .wrap img{
+ width:400px;
+ height:280px;
+} 
+/* 这里轮播要none不然会有bug */
+/* .img2{
+    display: none;
+}
+.img3{
+    display: none;
+} */
+
+.frame_content_top_left ul {
+    position: absolute;
+}
+
+.frame_content_top_left ul li {
+     height: 100%;
+     width: 100%; 
+}
+
+.frame_content_top_left ol {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+}
+
+.frame_content_top_left ol li {
+    height: 20px;
+    width: 20px;
+    background: #ccc;
+    border: solid 1px #666;
+    margin-left: 5px;
+    color: #000;
+    float: left;
+    line-height: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.frame_content_top_left ol .on {
+    background: #E97305;
+    color: #fff;
+}
